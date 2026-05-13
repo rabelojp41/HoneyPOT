@@ -1,0 +1,5 @@
+pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.13
+requests>=2.31        # geolocalização de IPs via ip-api.com
+tqdm>=4.66            # barra de progresso no parsing
