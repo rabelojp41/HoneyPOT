@@ -1,3 +1,6 @@
+# Override local — não versionar
+infra/docker-compose.override.yml
+
 # Logs reais do honeypot — não versionar
 logs/*.json
 logs/*.log

@@ -20,9 +20,6 @@ services:
       # Nível de log: INFO | DEBUG
       COWRIE_LOGLEVEL: "INFO"
 
-    # Cowrie roda como uid 1000 dentro do container
-    user: "1000:1000"
-
     # Limita recursos para não afetar o host caso haja flood
     deploy:
       resources:
@@ -47,6 +44,43 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+
+  # ── HTTP Honeypot — WordPress falso ──────────────
+  wp-honeypot:
+    build:
+      context: ./http-honeypot
+      dockerfile: Dockerfile
+    container_name: wp-honeypot
+    restart: unless-stopped
+
+    ports:
+      - "80:5000"
+
+    volumes:
+      - ../logs:/logs
+
+    environment:
+      SERVER_IP: ${SERVER_IP:-10.0.0.1}
+      LOG_DIR: /logs
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
+    networks:
+      - honeypot-net
+
+    security_opt:
+      - no-new-privileges:true
+
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:5000')\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
 networks:
   honeypot-net:

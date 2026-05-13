@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Acessar &#8249; Meu Site &#8212; WordPress</title>
+  <!-- default credentials: admin / admin -->
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#f0f0f1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    #login{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:32px;width:100%;max-width:340px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+    #login h1{text-align:center;margin-bottom:24px}
+    #login h1 a{font-size:1.1rem;color:#1d2327;text-decoration:none;font-weight:700}
+    .input-group{margin-bottom:16px}
+    .input-group label{display:block;font-size:.85rem;font-weight:600;color:#1d2327;margin-bottom:4px}
+    .input-group input{width:100%;padding:10px 12px;border:1px solid #8c8f94;border-radius:3px;font-size:.95rem;color:#2c3338}
+    .input-group input:focus{outline:none;border-color:#2271b1;box-shadow:0 0 0 1px #2271b1}
+    .hint{font-size:.75rem;color:#646970;margin-top:4px}
+    .btn{width:100%;background:#2271b1;color:#fff;border:none;padding:12px;border-radius:3px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:8px}
+    .btn:hover{background:#135e96}
+    .error{background:#fcf0f1;border:1px solid #d63638;border-left:4px solid #d63638;padding:12px;border-radius:3px;font-size:.85rem;color:#d63638;margin-bottom:16px}
+    .footer-links{text-align:center;margin-top:16px;font-size:.8rem}
+    .footer-links a{color:#2271b1;text-decoration:none}
+    .back{text-align:center;margin-top:12px;font-size:.8rem}
+    .back a{color:#646970}
+    .server-tag{font-size:.7rem;color:#a7aaad;text-align:center;margin-top:20px}
+  </style>
+</head>
+<body>
+  <!-- WordPress Login | Server: {{ server_ip }}:22 | user: admin | pass: admin -->
+  <div id="login">
+    <h1><a href="/">Meu Site</a></h1>
+
+    {% if error %}
+    <div class="error">{{ error|safe }}</div>
+    {% endif %}
+
+    <form method="POST" action="/wp-login.php">
+      <div class="input-group">
+        <label for="user_login">Usuário ou e-mail</label>
+        <input type="text" id="user_login" name="log" value="admin" autocomplete="username"/>
+        <div class="hint">Dica: usuário padrão é <strong>admin</strong></div>
+      </div>
+      <div class="input-group">
+        <label for="user_pass">Senha</label>
+        <input type="password" id="user_pass" name="pwd" value="admin" autocomplete="current-password"/>
+        <div class="hint">Dica: senha padrão é <strong>admin</strong></div>
+      </div>
+      <input type="hidden" name="wp-submit" value="Acessar"/>
+      <input type="hidden" name="redirect_to" value="/wp-admin/"/>
+      <input type="hidden" name="testcookie" value="1"/>
+      <button type="submit" class="btn">Acessar</button>
+    </form>
+
+    <div class="footer-links">
+      <a href="/wp-login.php?action=lostpassword">Esqueceu a senha?</a>
+    </div>
+    <div class="back">
+      <a href="/">&#8592; Voltar para Meu Site</a>
+    </div>
+  </div>
+
+  <div class="server-tag">
+    WordPress 6.4.3 &bull; {{ server_ip }} &bull;
+    <a href="/server-info.php">server info</a>
+  </div>
+</body>
+</html>

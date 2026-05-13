@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Painel &#8249; Meu Site &#8212; WordPress</title>
+  <!-- logged in as: admin | server: {{ server_ip }}:22 -->
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f0f0f1;color:#3c434a;display:flex;min-height:100vh}
+
+    /* Sidebar */
+    #adminmenu{width:160px;background:#1d2327;min-height:100vh;padding-top:32px;flex-shrink:0}
+    #adminmenu .logo{color:#fff;font-size:1.1rem;font-weight:700;padding:0 16px 24px;border-bottom:1px solid #2c3338}
+    #adminmenu ul{list-style:none;margin-top:12px}
+    #adminmenu ul li a{display:block;padding:10px 16px;color:#a7aaad;text-decoration:none;font-size:.85rem}
+    #adminmenu ul li a:hover,#adminmenu ul li.active a{background:#2c3338;color:#72aee6}
+    #adminmenu ul li.active a{border-left:3px solid #72aee6}
+
+    /* Top bar */
+    #wpadminbar{background:#1d2327;color:#a7aaad;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:.8rem;position:sticky;top:0;z-index:100;width:100%}
+    #wpadminbar span{color:#72aee6}
+
+    /* Main */
+    #wpbody{flex:1;display:flex;flex-direction:column}
+    #wpbody-content{padding:24px;flex:1}
+    h2.page-title{font-size:1.4rem;font-weight:400;color:#1d2327;margin-bottom:20px}
+
+    /* Cards */
+    .welcome-panel{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:24px;margin-bottom:24px}
+    .welcome-panel h3{font-size:1.1rem;color:#1d2327;margin-bottom:8px}
+    .welcome-panel p{font-size:.9rem;color:#646970;line-height:1.6}
+    .welcome-panel .actions{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+    .welcome-panel .actions a{padding:8px 16px;border-radius:3px;text-decoration:none;font-size:.85rem;font-weight:600}
+    .btn-primary{background:#2271b1;color:#fff}
+    .btn-secondary{background:#f0f0f1;color:#2271b1;border:1px solid #2271b1}
+
+    .dashboard-widgets{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .widget{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:0}
+    .widget-title{background:#f0f0f1;border-bottom:1px solid #c3c4c7;padding:10px 16px;font-size:.9rem;font-weight:600;color:#1d2327}
+    .widget-content{padding:16px;font-size:.85rem;color:#646970;line-height:1.8}
+    .widget-content a{color:#2271b1;text-decoration:none}
+    .widget-content strong{color:#1d2327}
+
+    /* Table */
+    table{width:100%;border-collapse:collapse;font-size:.85rem}
+    table th{text-align:left;padding:8px;border-bottom:2px solid #c3c4c7;color:#1d2327}
+    table td{padding:8px;border-bottom:1px solid #f0f0f1;color:#3c434a}
+    table tr:hover td{background:#f6f7f7}
+
+    .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+    .dot-green{background:#00a32a}
+    .dot-yellow{background:#dba617}
+  </style>
+</head>
+<body>
+  <div id="adminmenu">
+    <div class="logo">🌐 Meu Site</div>
+    <ul>
+      <li class="active"><a href="/wp-admin/">🏠 Painel</a></li>
+      <li><a href="#">📝 Posts</a></li>
+      <li><a href="#">📁 Mídia</a></li>
+      <li><a href="#">📄 Páginas</a></li>
+      <li><a href="#">💬 Comentários</a></li>
+      <li><a href="#">🎨 Aparência</a></li>
+      <li><a href="#">🔌 Plugins</a></li>
+      <li><a href="#">👤 Usuários</a></li>
+      <li><a href="#">🔧 Ferramentas</a></li>
+      <li><a href="#">⚙️ Ajustes</a></li>
+    </ul>
+  </div>
+
+  <div id="wpbody">
+    <div id="wpadminbar">
+      <span>WordPress 6.4.3</span>
+      <span>Olá, <strong>admin</strong> | <a href="/wp-login.php" style="color:#ff8a8a">Sair</a></span>
+    </div>
+
+    <div id="wpbody-content">
+      <h2 class="page-title">Painel</h2>
+
+      <div class="welcome-panel">
+        <h3>Bem-vindo ao WordPress!</h3>
+        <p>Para começar, aqui estão algumas ações sugeridas. O servidor está rodando em <strong>{{ server_ip }}</strong>. Acesso SSH disponível na porta <strong>22</strong> com as credenciais do sistema.</p>
+        <div class="actions">
+          <a href="#" class="btn-primary">Escrever primeiro post</a>
+          <a href="/server-info.php" class="btn-secondary">Info do servidor</a>
+          <a href="#" class="btn-secondary">Adicionar plugins</a>
+        </div>
+      </div>
+
+      <div class="dashboard-widgets">
+        <div class="widget">
+          <div class="widget-title">Visão Geral do Site</div>
+          <div class="widget-content">
+            <p><strong>2</strong> posts publicados</p>
+            <p><strong>1</strong> página</p>
+            <p><strong>4</strong> comentários</p>
+            <p style="margin-top:8px"><span class="status-dot dot-green"></span>WordPress 6.4.3 rodando em <strong>{{ server_ip }}</strong></p>
+            <p><span class="status-dot dot-yellow"></span>Tema Twenty Twenty-Four</p>
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title">Atividade Recente</div>
+          <div class="widget-content">
+            <table>
+              <tr><th>Data</th><th>Usuário</th><th>Ação</th></tr>
+              <tr><td>13/05/2026</td><td>admin</td><td>Login realizado</td></tr>
+              <tr><td>13/05/2026</td><td>admin</td><td>Post publicado</td></tr>
+              <tr><td>10/05/2026</td><td>admin</td><td>Plugin instalado</td></tr>
+              <tr><td>09/05/2026</td><td>admin</td><td>Tema ativado</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title">Informações do Sistema</div>
+          <div class="widget-content">
+            <p><strong>PHP:</strong> 8.2.18</p>
+            <p><strong>MySQL:</strong> 8.0.36</p>
+            <p><strong>Servidor:</strong> Apache/2.4.57</p>
+            <p><strong>IP:</strong> {{ server_ip }}</p>
+            <p><strong>SSH:</strong> root@{{ server_ip }}:22</p>
+            <p><a href="/server-info.php">Ver detalhes completos →</a></p>
+          </div>
+        </div>
+
+        <div class="widget">
+          <div class="widget-title">Plugins Ativos</div>
+          <div class="widget-content">
+            <p><span class="status-dot dot-green"></span>Wordfence Security 7.11</p>
+            <p><span class="status-dot dot-green"></span>Yoast SEO 22.4</p>
+            <p><span class="status-dot dot-green"></span>WooCommerce 8.7</p>
+            <p><span class="status-dot dot-yellow"></span>Akismet — <strong>chave inválida</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
