@@ -1,0 +1,55 @@
+services:
+  cowrie:
+    image: cowrie/cowrie:latest
+    container_name: cowrie
+    restart: unless-stopped
+
+    ports:
+      # Porta 22 do host → porta interna do Cowrie (SSH honeypot)
+      - "22:2222"
+      # Descomente para ativar Telnet
+      # - "23:2223"
+
+    volumes:
+      # Logs JSON persistentes no host
+      - ../logs:/cowrie/var/log/cowrie
+      # Configuração customizada (opcional — copie cowrie.cfg.dist e edite)
+      # - ./cowrie.cfg:/cowrie/etc/cowrie.cfg:ro
+
+    environment:
+      # Nível de log: INFO | DEBUG
+      COWRIE_LOGLEVEL: "INFO"
+
+    # Cowrie roda como uid 1000 dentro do container
+    user: "1000:1000"
+
+    # Limita recursos para não afetar o host caso haja flood
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          memory: 64M
+
+    # Rede isolada — o honeypot não tem acesso à rede interna
+    networks:
+      - honeypot-net
+
+    # Leitura apenas do sistema de arquivos do container (hardening)
+    read_only: false   # Cowrie precisa escrever em /cowrie/var
+    security_opt:
+      - no-new-privileges:true
+
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2222"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  honeypot-net:
+    driver: bridge
+    # Sem acesso à rede do host — isolamento do honeypot
+    internal: false

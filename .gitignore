@@ -1,0 +1,29 @@
+# Logs reais do honeypot — não versionar
+logs/*.json
+logs/*.log
+logs/tty/
+logs/dl/
+
+# Manter a pasta no git
+!logs/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Segredos
+*.key
+*.pem
+*.env
+secrets/

@@ -1,0 +1,13 @@
+# Scripts shell sempre com LF (evita quebra no Linux)
+*.sh text eol=lf
+
+# Configs de texto normais
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+
+# Binários
+*.png binary
+*.jpg binary
